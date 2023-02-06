@@ -7,11 +7,7 @@ class PostController {
   createPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { title, content, disclosure } = req.body;
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
       const { id } = res.locals.user;
-
       if (!title || !content || !disclosure) {
         throw new Error("입력값을 확인해 주세요");
       }
@@ -48,9 +44,6 @@ class PostController {
     try {
       const { postId } = req.params;
       const { title, content } = req.body;
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
       if (!postId || !title || !content) {
         throw new Error("입력값을 확인해 주세요");
       }
@@ -70,11 +63,7 @@ class PostController {
       if (!postId) {
         throw new Error("입력값을 확인해 주세요");
       }
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
       const { id } = res.locals.user;
-
       await this.postService.deletePost(Number(postId), id);
       res
         .status(201)

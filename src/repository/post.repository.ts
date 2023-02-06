@@ -42,7 +42,6 @@ class PostRepository {
     content: string,
     userId: number
   ) => {
-    console.log("여기...");
     const updatedPost = await AppDataSource.getRepository(Post)
       .createQueryBuilder()
       .update()

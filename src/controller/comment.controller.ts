@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { STATUS_CODES } from "http";
-
 import CommentService from "../service/comment.service";
 
 class CommentController {
@@ -8,10 +6,6 @@ class CommentController {
 
   createComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
-      console.log("check");
       const { id } = res.locals.user;
       const { content, postId } = req.body;
       if (!content || !postId) {
@@ -30,9 +24,6 @@ class CommentController {
 
   updatedComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
       const { id } = res.locals.user;
       const { content, commentId } = req.body;
       if (!content || !commentId) {
@@ -51,9 +42,6 @@ class CommentController {
     next: NextFunction
   ) => {
     try {
-      if (res.locals.user === null) {
-        throw new Error("잘못된 토큰입니다");
-      }
       const { id } = res.locals.user;
       const { commentId, postId } = req.body;
       if (!commentId || !postId) {

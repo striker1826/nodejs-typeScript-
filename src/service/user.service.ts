@@ -1,8 +1,7 @@
-import Joi from "joi";
 import bcrypt from "bcrypt";
 import UserRepository from "../repository/user.repository";
 import { signJwt, signRefresh } from "../util/jwt-util";
-import { schema } from "../util/validation";
+import { schema } from "../util/validation-util";
 
 class UserService {
   constructor(private userRepository: UserRepository) {}

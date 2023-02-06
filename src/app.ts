@@ -1,14 +1,18 @@
 import indexRouter from "./routes/index.routes";
-import express, { Express, Request } from "express";
+import express from "express";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import cors from "cors";
 import path from "path";
 
-const app: Express = express();
+const app = express();
 const port = 5000;
 
-app.use(cors());
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 const swaggerSpec = YAML.load(path.join(__dirname, "../build/swagger.yaml"));
 
@@ -17,8 +21,7 @@ app.use(express.json());
 app.use(indexRouter);
 
 app.use(function (err, req, res, next) {
-  console.log(err);
-  res.status(500).json(err.message);
+  res.status(500).json({ success: false, message: err.message });
 });
 
 app.listen(port, () => {
