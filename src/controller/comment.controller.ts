@@ -56,7 +56,7 @@ class CommentController {
       }
       const { id } = res.locals.user;
       const { commentId, postId } = req.body;
-      if (!commentId || !postId) {
+      if (!commentId && !postId) {
         throw new Error("입력값을 확인해 주세요");
       }
       const result = await this.commentService.deleteCommentByPostWriter(

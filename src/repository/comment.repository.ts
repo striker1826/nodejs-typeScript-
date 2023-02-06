@@ -36,23 +36,12 @@ class CommentRepository {
     return comment;
   };
 
-  deleteByPostWriter = (commentId: number) => {
+  deleteComment = async (commentId: number) => {
     AppDataSource.getRepository(Comment)
       .createQueryBuilder()
       .delete()
       .where("commentId = :commentId", { commentId })
       .execute();
-    return;
-  };
-
-  deleteByCommentWriter = (commentId: number, userId: number) => {
-    AppDataSource.getRepository(Comment)
-      .createQueryBuilder()
-      .delete()
-      .where("commentId = :commentId", { commentId })
-      .andWhere("userId = :userId", { userId })
-      .execute();
-    return;
   };
 }
 

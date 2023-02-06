@@ -34,17 +34,32 @@ class PostService {
     content: string,
     userId: number
   ) => {
+    const post = await this.postRepository.findOnePostByPostId(postId);
+    if (!post) {
+      throw new Error("존재하지 않는 게시글 입니다");
+    }
+
+    if (post.userId !== userId) {
+      throw new Error("수정 권한이 없습니다");
+    }
     const updatedPost = await this.postRepository.updatedPost(
       postId,
       title,
       content,
       userId
     );
-
     return updatedPost;
   };
 
   deletePost = async (postId: number, userId: number) => {
+    const post = await this.postRepository.findOnePostByPostId(postId);
+    if (!post) {
+      throw new Error("존재하지 않는 게시글 입니다");
+    }
+
+    if (post.userId !== userId) {
+      throw new Error("삭제 권한이 없습니다");
+    }
     await this.postRepository.deletePost(postId, userId);
     return;
   };

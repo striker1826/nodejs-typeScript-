@@ -21,6 +21,17 @@ class CommentService {
     commentId: number,
     userId: number
   ) => {
+    const comment = await this.commentRepository.findCommentByCommentId(
+      commentId
+    );
+    if (!comment) {
+      throw new Error("존재하지 않는 댓글 입니다");
+    }
+
+    if (comment.userId !== userId) {
+      throw new Error("수정 권한이 없습니다");
+    }
+
     const updatedComment = await this.commentRepository.updatedComment(
       content,
       commentId,
@@ -34,29 +45,26 @@ class CommentService {
     userId: number,
     postId: number
   ) => {
-    if (postId) {
-      const post = await this.postRepository.findOnePostByPostId(postId);
-      if (post.userId !== userId) {
-        throw new Error("게시글 작성자가 아닙니다");
-      }
-      this.commentRepository.deleteByPostWriter(commentId);
-      return;
-    } else if (!postId) {
-      const comment = await this.commentRepository.findCommentByCommentId(
-        commentId
-      );
-
-      if (!comment) {
-        throw new Error("존재하지 않는 댓글입니다");
-      }
-
-      if (comment.userId !== userId) {
-        throw new Error("작성자만 삭제가 가능합니다");
-      }
-
-      this.commentRepository.deleteByCommentWriter(commentId, userId);
-      return;
+    const post = await this.postRepository.findOnePostByPostId(postId);
+    const comment = await this.commentRepository.findCommentByCommentId(
+      commentId
+    );
+    if (!post) {
+      throw new Error("존재하지 않는 게시글 입니다");
     }
+
+    if (!comment) {
+      throw new Error("존재하지 않는 댓글 입니다");
+    }
+
+    if (post.userId === userId) {
+      await this.commentRepository.deleteComment(commentId);
+    } else if (comment.userId === userId) {
+      await this.commentRepository.deleteComment(commentId);
+    } else {
+      throw new Error("삭제 권한이 없습니다");
+    }
+    return;
   };
 }
 
