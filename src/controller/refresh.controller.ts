@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import RefreshService from "../service/refresh.service";
 
 class RefreshController {
-  refreshService = new RefreshService();
+  constructor(private refreshService: RefreshService) {}
 
   refresh = (req: Request, res: Response, next: NextFunction) => {
     try {
