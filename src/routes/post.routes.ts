@@ -1,13 +1,10 @@
 import express, { Router } from "express";
 import { auth_middleware } from "../middleware/auth_middleware";
 import PostController from "../controller/post.controller";
-import PostService from "../service/post.service";
-import PostRepository from "../repository/post.repository";
+import Container from "typedi";
 
 const router: Router = express.Router();
-const postRepository = new PostRepository();
-const postService = new PostService(postRepository);
-const postController = new PostController(postService);
+const postController = Container.get(PostController);
 
 router.post("/", auth_middleware, postController.createPost);
 router.get("/", postController.findByPosts);

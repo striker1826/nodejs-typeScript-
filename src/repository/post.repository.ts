@@ -1,6 +1,8 @@
+import { Service } from "typedi";
 import { AppDataSource } from "../data-source";
 import { Post } from "../entity/Post";
 
+@Service()
 class PostRepository {
   createPost = async (
     title: string,

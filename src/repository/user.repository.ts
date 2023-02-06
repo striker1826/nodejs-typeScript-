@@ -1,6 +1,8 @@
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
+import { Service } from "typedi";
 
+@Service()
 class UserRepository {
   createUser = async (id: string, hashedPassword: string) => {
     const newUser = await AppDataSource.getRepository(User).save({

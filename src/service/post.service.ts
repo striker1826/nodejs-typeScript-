@@ -1,7 +1,9 @@
+import Container, { Service } from "typedi";
 import PostRepository from "../repository/post.repository";
 
+@Service()
 class PostService {
-  constructor(private postRepository: PostRepository) {}
+  postRepository = Container.get(PostRepository);
 
   createPost = async (
     title: string,

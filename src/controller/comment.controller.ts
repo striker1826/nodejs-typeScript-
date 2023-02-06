@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { STATUS_CODES } from "http";
-
+import Container, { Service } from "typedi";
 import CommentService from "../service/comment.service";
 
+@Service()
 class CommentController {
-  constructor(private commentService: CommentService) {}
+  commentService = Container.get(CommentService);
 
   createComment = async (req: Request, res: Response, next: NextFunction) => {
     try {

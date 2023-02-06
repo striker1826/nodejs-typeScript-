@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Comment } from "./entity/Comment";
 import { Post } from "./entity/Post";

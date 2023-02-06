@@ -1,7 +1,8 @@
+import { Service } from "typedi";
 import { AppDataSource } from "../data-source";
 import { Comment } from "../entity/Comment";
-import { Post } from "../entity/Post";
 
+@Service()
 class CommentRepository {
   createComment = async (content: string, postId: number, userId: number) => {
     console.log(userId);

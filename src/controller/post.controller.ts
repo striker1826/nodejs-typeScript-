@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
+import Container, { Service } from "typedi";
 import PostService from "../service/post.service";
 
+@Service()
 class PostController {
-  constructor(private postService: PostService) {}
+  postService = Container.get(PostService);
 
   createPost = async (req: Request, res: Response, next: NextFunction) => {
     try {

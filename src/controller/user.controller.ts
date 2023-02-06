@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
+import Container, { Service } from "typedi";
 import UserService from "../service/user.service";
 
+@Service()
 class UserController {
-  constructor(private userService: UserService) {}
+  userService = Container.get(UserService);
 
   createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {

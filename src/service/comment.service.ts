@@ -1,12 +1,11 @@
+import Container, { Service } from "typedi";
 import CommentRepository from "../repository/comment.repository";
 import PostRepository from "../repository/post.repository";
 
+@Service()
 class CommentService {
-  constructor(
-    private commentRepository: CommentRepository,
-    private postRepository: PostRepository
-  ) {}
-
+  commentRepository = Container.get(CommentRepository);
+  postRepository = Container.get(PostRepository);
   createComment = async (content: string, postId: number, userId: number) => {
     const newComment = await this.commentRepository.createComment(
       content,

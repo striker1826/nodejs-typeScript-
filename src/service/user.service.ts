@@ -3,9 +3,11 @@ import bcrypt from "bcrypt";
 import UserRepository from "../repository/user.repository";
 import { signJwt, signRefresh } from "../util/jwt-util";
 import { schema } from "../util/validation";
+import Container, { Service } from "typedi";
 
+@Service()
 class UserService {
-  constructor(private userRepository: UserRepository) {}
+  userRepository = Container.get(UserRepository);
 
   createUser = async (id: string, password: string) => {
     try {
