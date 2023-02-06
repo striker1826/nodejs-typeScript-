@@ -22,9 +22,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "joi": "^17.7.0",
+    "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
     "swagger-cli": "^4.0.4",
     "swagger-ui-express": "^4.6.0",
+    "typedi": "^0.10.0",
     "typeorm": "0.3.11",
     "yamljs": "^0.3.0"
   },
