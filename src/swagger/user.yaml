@@ -1,0 +1,44 @@
+/user:
+  post:
+    tags:
+      - User
+    summary: 유저 생성
+    consumes:
+      - application/json
+    requestBody:
+      x-name: body
+      required: true
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                type: string
+                description: 아이디
+                example: "test1234"
+              password:
+                type: string
+                description: 비밀번호
+                example: "asdf1234!"
+    responses:
+      "201":
+        description: 유저 생성 성공
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "status": 201,
+                  "success": true,
+                  "message": "유저 생성 성공",
+                  "newUser": { "userId": 1, "id": "test1234" },
+                }
+      "500":
+        description: 유저 생성 실패
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                { "status": 400, "success": false, "message": "유저 생성 실패" }

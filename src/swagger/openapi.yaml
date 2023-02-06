@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: SOPT API docs
+  description: SOPT SERVER SEMINAR
+  license:
+    name: Jionee
+servers:
+  - url: http://localhost:3000/ #자신의 포트번호
+
+#Paths api 경로 지정
+paths:
+  /user:
+    $ref: "./user.yaml#/~1user"
+  /post:
+    $ref: "./post.yaml#/~1post"
+  /post/{postId}:
+    $ref: "./post.yaml#/~1post~1{postId}"
+  /comment:
+    $ref: "./comment.yaml#/~1comment"
+  /comment/{commentId}:
+    $ref: "./comment.yaml#/~1comment~1{commentId}"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters: null
+  schemas:
+    user:
+      properties:
+        userId:
+          type: int
+          description: 유저 고유 번호
+        id:
+          type: string
+          description: 유저 아이디
+        password:
+          type: string
+          description: 유저 비밀번호
+    post:
+      properties:
+        postId:
+          type: int
+          description: 게시글 고유 번호
+        title:
+          type: string
+          description: 게시글 제목
+        content:
+          type: string
+          description: 게시글 내용
+        userId:
+          type: string
+          description: 게시글을 쓴 유저의 고유 번호

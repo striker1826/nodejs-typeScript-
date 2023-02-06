@@ -1,0 +1,186 @@
+/post:
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Post
+    summary: 게시글 생성
+    consumes:
+      - application/json
+    requestBody:
+      x-name: body
+      required: true
+      content:
+        application/json:
+          schema:
+            properties:
+              title:
+                type: string
+                description: 게시글 제목
+                example: "제목"
+              content:
+                type: string
+                description: 게시글 내용
+                example: "게시글의 내용입니다"
+              disclosure:
+                type: boolean
+                description: 게시글 공개 여부
+                example: true
+    responses:
+      "201":
+        description: 게시글 생성 성공
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "status": 201,
+                  "success": true,
+                  "message": "게시글 생성 성공",
+                  "newPost":
+                    {
+                      "postId": 1,
+                      "title": "제목",
+                      "content": "게시글의 내용입니다",
+                      "userId": 1,
+                    },
+                }
+      "500":
+        description: 게시글 생성 실패
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "status": 400,
+                  "success": false,
+                  "message": "게시글 생성 실패",
+                }
+
+  get:
+    tags:
+      - Post
+    summary: 공개된 게시글 전체 조회
+    responses:
+      "200":
+        description: 공개 게시글 전체 조회 성공
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "success": true,
+                  "message": "공개 게시글 전체 조회 성공",
+                  "posts":
+                    [
+                      {
+                        "postId": 1,
+                        "title": "title",
+                        "content": "content",
+                        "disclosure": true,
+                        "userId": 3,
+                      },
+                      {
+                        "postId": 2,
+                        "title": "수정 제목2",
+                        "content": "수정된 게시글",
+                        "disclosure": true,
+                        "userId": 0,
+                      },
+                      {
+                        "postId": 4,
+                        "title": "제목",
+                        "content": "게시글",
+                        "disclosure": true,
+                        "userId": 0,
+                      },
+                    ],
+                }
+      "500":
+        description: 게시글 전체 조회 실패
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                { "success": false, "message": "게시글 조회에 실패했습니다" }
+
+/post/{postId}:
+  patch:
+    security:
+      - bearerAuth: []
+    tags:
+      - Post
+    summary: 게시글 수정
+    parameters:
+      - in: path
+        name: postId
+        required: true
+        description: 게시글 고유 번호
+        schema:
+          type: string
+    requestBody:
+      x-name: body
+      required: true
+      content:
+        application/json:
+          schema:
+            properties:
+              title:
+                type: string
+                description: 게시글 제목
+                example: "제목"
+              content:
+                type: string
+                description: 게시글 내용
+                example: "게시글의 내용입니다"
+    responses:
+      "201":
+        description: 게시글 수정 성공
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                { "success": true, "message": "게시글 수정에 성공했습니다" }
+      "500":
+        description: 게시글 수정 실패
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                { "success": false, "message": "게시글 수정에 실패했습니다" }
+
+  delete:
+    security:
+      - bearerAuth: []
+    tags:
+      - Post
+    summary: 게시글 삭제
+    parameters:
+      - in: path
+        name: postId
+        required: true
+        description: 게시글 고유 번호
+        schema:
+          type: string
+    responses:
+      "201":
+        description: 게시글 삭제 성공
+        content:
+          application/json:
+            schema:
+              type: object
+              example: { "success": true, "message": "게시글이 삭제되었습니다" }
+      "500":
+        description: 게시글 삭제 실패
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                { "success": false, "message": "게시글 삭제에 실패했습니다" }
