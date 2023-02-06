@@ -4,7 +4,6 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import cors from "cors";
 import path from "path";
-import "reflect-metadata";
 
 const app: Express = express();
 const port = 5000;
